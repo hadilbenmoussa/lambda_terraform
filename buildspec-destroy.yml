@@ -1,0 +1,20 @@
+version: 0.2
+
+env:
+  variables:
+     TERRAFORM_VERSION: "0.14.7"
+
+phases:
+  install:
+    commands:
+      - curl -o "terraform.zip" https://releases.hashicorp.com/terraform/"$TERRAFORM_VERSION"/terraform_"$TERRAFORM_VERSION"_linux_amd64.zip
+      - unzip terraform.zip
+      - mv terraform /usr/bin/terraform
+      - rm -f terraform.zip
+      - terraform -version
+
+  build:
+    commands:
+      - terraform init 
+      - terraform destroy -auto-approve
+
